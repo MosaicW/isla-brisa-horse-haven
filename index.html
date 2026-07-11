@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f3934" />
+  <meta name="description" content="A free-play tropical island horse adventure." />
+  <title>Isla Brisa — Horse Haven</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,650;9..144,750&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="game" aria-label="Isla Brisa horse adventure">
+    <div id="scene" aria-label="Interactive 3D tropical island"></div>
+
+    <div class="loading-screen" id="loadingScreen">
+      <div class="loading-mark" aria-hidden="true">♞</div>
+      <p>Welcome to</p>
+      <h1>Isla Brisa</h1>
+      <span>Preparing your horse...</span>
+      <div class="loading-line"><i></i></div>
+    </div>
+
+    <header class="topbar">
+      <div class="brand" aria-label="Isla Brisa Horse Haven">
+        <span class="brand-mark" aria-hidden="true">♞</span>
+        <span><strong>Isla Brisa</strong><small>HORSE HAVEN</small></span>
+      </div>
+      <div class="location-chip"><span aria-hidden="true">⌖</span><span id="locationName">Sunshore Paddock</span></div>
+      <div class="top-actions">
+        <div class="free-badge"><span aria-hidden="true">∞</span> FREE PLAY</div>
+        <button class="icon-button" id="helpBtn" aria-label="Open controls help">?</button>
+        <button class="icon-button" id="soundBtn" aria-label="Toggle ambient sound">♫</button>
+      </div>
+    </header>
+
+    <section class="horse-card glass" aria-live="polite">
+      <div class="horse-avatar" id="horseAvatar" aria-hidden="true">♞</div>
+      <div class="horse-title">
+        <p>Your companion</p>
+        <h2 id="horseName">Solana</h2>
+        <span id="horseBreedLabel">Palomino Andalusian</span>
+      </div>
+      <div class="stat-grid">
+        <div><span>Bond</span><div class="meter"><i id="bondMeter"></i></div><b id="bondValue">72%</b></div>
+        <div><span>Mood</span><div class="meter mood"><i id="moodMeter"></i></div><b id="moodValue">Happy</b></div>
+        <div><span>Energy</span><div class="meter energy"><i id="energyMeter"></i></div><b id="energyValue">96%</b></div>
+      </div>
+    </section>
+
+    <section class="discovery-card glass" id="discoveryCard" aria-live="polite">
+      <span class="discovery-icon" id="discoveryIcon" aria-hidden="true">🌺</span>
+      <div><small id="discoveryLabel">ISLAND MOMENT</small><p id="discoveryText">Solana is enjoying the ocean breeze.</p></div>
+    </section>
+
+    <aside class="customizer glass" id="customizer" aria-label="Customization panel">
+      <div class="panel-heading">
+        <div><p>Make it yours</p><h2>Island Studio</h2></div>
+        <button class="close-panel" id="closePanel" aria-label="Close customization">×</button>
+      </div>
+      <div class="tabs" role="tablist">
+        <button class="tab active" role="tab" aria-selected="true" data-tab="horse">Horse</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="rider">Rider</button>
+        <button class="tab" role="tab" aria-selected="false" data-tab="tack">Tack</button>
+      </div>
+
+      <div class="tab-panel active" data-panel="horse">
+        <label for="horseNameInput">Horse name</label>
+        <input id="horseNameInput" value="Solana" maxlength="14" />
+        <label for="breedSelect">Breed — all unlocked</label>
+        <select id="breedSelect">
+          <option value="andalusian">Andalusian</option>
+          <option value="arabian">Arabian</option>
+          <option value="friesian">Friesian</option>
+          <option value="appaloosa">Appaloosa</option>
+          <option value="quarter">Quarter Horse</option>
+          <option value="thoroughbred">Thoroughbred</option>
+        </select>
+        <span class="field-note">Choose a coat</span>
+        <div class="swatches" id="coatSwatches" aria-label="Horse coat color"></div>
+        <label for="maneSelect">Mane style</label>
+        <select id="maneSelect">
+          <option value="flowing">Long & flowing</option>
+          <option value="braided">Button braids</option>
+          <option value="sport">Sport trim</option>
+        </select>
+        <button class="wide-button" id="meetHorseBtn">Meet this horse</button>
+      </div>
+
+      <div class="tab-panel" data-panel="rider">
+        <div class="rider-profile">
+          <div class="rider-portrait" aria-hidden="true"><span>✦</span></div>
+          <div><strong>Your island rider</strong><p>Warm brown eyes, tan skin, and dark brown hair inspired by your photos.</p></div>
+        </div>
+        <label for="hairSelect">Hairstyle</label>
+        <select id="hairSelect">
+          <option value="side">Side-swept layers</option>
+          <option value="pony">High ponytail</option>
+          <option value="braids">Twin braids</option>
+        </select>
+        <label for="outfitSelect">Riding outfit</label>
+        <select id="outfitSelect">
+          <option value="island">Island trail</option>
+          <option value="classic">Classic equestrian</option>
+          <option value="sunset">Sunset coral</option>
+          <option value="ocean">Ocean blue</option>
+        </select>
+        <span class="field-note">Top color</span>
+        <div class="swatches rider-swatches" id="outfitSwatches" aria-label="Outfit color"></div>
+        <label class="toggle-row"><span>Riding helmet</span><input type="checkbox" id="helmetToggle" checked /><i></i></label>
+      </div>
+
+      <div class="tab-panel" data-panel="tack">
+        <p class="panel-copy">Mix, match, or ride bareback. Every option is free.</p>
+        <div class="tack-list">
+          <label class="toggle-row"><span><b>Saddle</b><small>Trail saddle</small></span><input type="checkbox" id="saddleToggle" checked /><i></i></label>
+          <label class="toggle-row"><span><b>Saddle blanket</b><small id="blanketColorLabel">Lagoon teal</small></span><input type="checkbox" id="blanketToggle" checked /><i></i></label>
+          <label class="toggle-row"><span><b>Bridle</b><small>Soft leather</small></span><input type="checkbox" id="bridleToggle" checked /><i></i></label>
+          <label class="toggle-row"><span><b>Halter</b><small>For leading</small></span><input type="checkbox" id="halterToggle" /><i></i></label>
+        </div>
+        <span class="field-note">Blanket color</span>
+        <div class="swatches" id="tackSwatches" aria-label="Saddle blanket color"></div>
+      </div>
+    </aside>
+
+    <button class="studio-button" id="studioBtn"><span aria-hidden="true">✦</span> Customize</button>
+
+    <section class="gait-card glass" aria-label="Horse gait">
+      <p>Riding pace</p>
+      <div class="gait-buttons">
+        <button class="gait active" data-gait="walk"><span>1</span>Walk</button>
+        <button class="gait" data-gait="trot"><span>2</span>Trot</button>
+        <button class="gait" data-gait="gallop"><span>3</span>Gallop</button>
+      </div>
+    </section>
+
+    <div class="minimap glass" aria-label="Island mini map">
+      <canvas id="miniMap" width="176" height="176"></canvas>
+      <span>BRISA ISLAND</span>
+    </div>
+
+    <nav class="action-dock glass" aria-label="Horse actions">
+      <button class="action primary" id="mountBtn"><span aria-hidden="true">♞</span><b>Mount</b><small>M</small></button>
+      <button class="action" id="feedBtn"><span aria-hidden="true">🍎</span><b>Feed</b><small>F</small></button>
+      <button class="action" id="petBtn"><span aria-hidden="true">♡</span><b>Pet</b><small>P</small></button>
+      <button class="action" id="brushBtn"><span aria-hidden="true">✦</span><b>Brush</b><small>B</small></button>
+      <button class="action" id="leadBtn"><span aria-hidden="true">⌁</span><b>Lead</b><small>L</small></button>
+    </nav>
+
+    <div class="joystick" id="joystick" aria-label="Touch movement control">
+      <button data-move="forward" aria-label="Move forward">▲</button>
+      <button data-move="left" aria-label="Turn left">◀</button>
+      <button data-move="back" aria-label="Move back">▼</button>
+      <button data-move="right" aria-label="Turn right">▶</button>
+    </div>
+
+    <div class="care-progress" id="careProgress" aria-live="polite"><i></i><span>Brushing...</span></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <dialog id="helpDialog">
+      <button class="dialog-close" id="helpClose" aria-label="Close help">×</button>
+      <p class="eyebrow">How to play</p>
+      <h2>Explore your way</h2>
+      <div class="help-grid">
+        <div><kbd>WASD</kbd><span>Move & steer</span></div>
+        <div><kbd>1 2 3</kbd><span>Change riding pace</span></div>
+        <div><kbd>M</kbd><span>Mount / dismount</span></div>
+        <div><kbd>F P B L</kbd><span>Care & lead</span></div>
+      </div>
+      <p class="help-note">There are no coins, timers, or locked items. Explore, care for your horse, meet wildlife, and customize whenever you like.</p>
+      <button class="wide-button" id="letsRideBtn">Let’s ride</button>
+    </dialog>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
